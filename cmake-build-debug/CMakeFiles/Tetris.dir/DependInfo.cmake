@@ -6,7 +6,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_C
   "/home/raulnet/CLionProjects/Tetris/game.c" "/home/raulnet/CLionProjects/Tetris/cmake-build-debug/CMakeFiles/Tetris.dir/game.c.o"
   "/home/raulnet/CLionProjects/Tetris/main.c" "/home/raulnet/CLionProjects/Tetris/cmake-build-debug/CMakeFiles/Tetris.dir/main.c.o"
-  "/home/raulnet/CLionProjects/Tetris/motorRender.c" "/home/raulnet/CLionProjects/Tetris/cmake-build-debug/CMakeFiles/Tetris.dir/motorRender.c.o"
   "/home/raulnet/CLionProjects/Tetris/tetriminos.c" "/home/raulnet/CLionProjects/Tetris/cmake-build-debug/CMakeFiles/Tetris.dir/tetriminos.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

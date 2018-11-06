@@ -92,12 +92,6 @@
 		<Unit filename="/home/raulnet/CLionProjects/Tetris/main.c">
 			<Option target="Tetris"/>
 		</Unit>
-		<Unit filename="/home/raulnet/CLionProjects/Tetris/motorRender.c">
-			<Option target="Tetris"/>
-		</Unit>
-		<Unit filename="/home/raulnet/CLionProjects/Tetris/motorRender.h">
-			<Option target="Tetris"/>
-		</Unit>
 		<Unit filename="/home/raulnet/CLionProjects/Tetris/tetriminos.c">
 			<Option target="Tetris"/>
 		</Unit>

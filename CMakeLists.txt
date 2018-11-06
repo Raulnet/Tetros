@@ -8,5 +8,5 @@ set(SDL_IMAGE_LIBRARY /usr/lib/x86_64-linux-gnu/libSDL_image.so)
 find_package(SDL REQUIRED)
 include_directories(${SDL_INCLUDE_DIR})
 
-add_executable(Tetris main.c game.c game.h enum.h motorRender.c motorRender.h tetriminos.c tetriminos.h)
+add_executable(Tetris main.c game.c game.h enum.h tetriminos.c tetriminos.h)
 target_link_libraries(Tetris ${SDL_LIBRARY} ${SDL_IMAGE_LIBRARY})

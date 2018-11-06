@@ -177,33 +177,6 @@ main.c.s:
 	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/main.c.s
 .PHONY : main.c.s
 
-motorRender.o: motorRender.c.o
-
-.PHONY : motorRender.o
-
-# target to build an object file
-motorRender.c.o:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/motorRender.c.o
-.PHONY : motorRender.c.o
-
-motorRender.i: motorRender.c.i
-
-.PHONY : motorRender.i
-
-# target to preprocess a source file
-motorRender.c.i:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/motorRender.c.i
-.PHONY : motorRender.c.i
-
-motorRender.s: motorRender.c.s
-
-.PHONY : motorRender.s
-
-# target to generate assembly for a file
-motorRender.c.s:
-	$(MAKE) -f CMakeFiles/Tetris.dir/build.make CMakeFiles/Tetris.dir/motorRender.c.s
-.PHONY : motorRender.c.s
-
 tetriminos.o: tetriminos.c.o
 
 .PHONY : tetriminos.o
@@ -246,9 +219,6 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... motorRender.o"
-	@echo "... motorRender.i"
-	@echo "... motorRender.s"
 	@echo "... tetriminos.o"
 	@echo "... tetriminos.i"
 	@echo "... tetriminos.s"
