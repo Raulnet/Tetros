@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/raulnet/CLionProjects/Tetris/enum.h
+
+/home/raulnet/CLionProjects/Tetris/tetriminos.c
+stdlib.h
+-
+stdio.h
+-
+SDL/SDL.h
+-
+time.h
+-
+tetriminos.h
+/home/raulnet/CLionProjects/Tetris/tetriminos.h
+enum.h
+/home/raulnet/CLionProjects/Tetris/enum.h
+
+/home/raulnet/CLionProjects/Tetris/tetriminos.h
+SDL/SDL.h
+-
+
