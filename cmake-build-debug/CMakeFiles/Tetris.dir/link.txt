@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/Tetris.dir/main.c.o CMakeFiles/Tetris.dir/game.c.o CMakeFiles/Tetris.dir/tetriminos.c.o  -o Tetris /usr/lib/x86_64-linux-gnu/libSDL.so /usr/lib/x86_64-linux-gnu/libSDL_image.so 
