@@ -252,12 +252,16 @@ void setTetriminosO(Tetriminos *tetriminos) {
     tetriminos->templateLeft = block;
 }
 
-void setRandomTetrominos(Tetriminos *tetriminos) {
+int getRandomId() {
     int randomId = 0;
     srand(time(NULL));
     randomId = (rand() % (6 - 0 + 1)) + 0;
-    //TODO up Random Id Max Id 3 time Max
-    printf("%d", randomId);
+    return randomId;
+}
+
+void setRandomTetrominos(Tetriminos *tetriminos) {
+    int randomId = getRandomId();
+
     switch (randomId) {
         case I:
             tetriminos->img = RED;
@@ -307,7 +311,7 @@ void pushBlock(Block *block, int content, int nextDirection) {
     }
 }
 
-void renderTetriminos(Tetriminos *tetriminos, SDL_Surface *blockImg[], SDL_Surface *screen) {
+void renderTetriminos(Tetriminos *tetriminos, SDL_Surface **pSurfaces) {
     SDL_Rect blockPosition;
     blockPosition.x = tetriminos->positionX;
     blockPosition.y = tetriminos->positionY;
@@ -330,7 +334,7 @@ void renderTetriminos(Tetriminos *tetriminos, SDL_Surface *blockImg[], SDL_Surfa
     }
     do {
         if (currentBlock->content == BLOCK) {
-            SDL_BlitSurface(blockImg[tetriminos->img], NULL, screen, &blockPosition);
+            SDL_BlitSurface(pSurfaces[tetriminos->img], NULL, pSurfaces[SCREEN], &blockPosition);
         }
         switch (currentBlock->nextDirection) {
             case TOP:

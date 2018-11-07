@@ -26,6 +26,8 @@ enum {
 };
 
 enum {
+    SCREEN,
+    BACKGROUND,
     AQUA, AQUA_N,
     BLUE, BLUE_N,
     GREEN, GREEN_N,

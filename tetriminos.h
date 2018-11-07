@@ -37,6 +37,6 @@ void setRandomTetrominos(Tetriminos *tetriminos);
 
 void pushBlock(Block *block, int content, int nextDirection);
 
-void renderTetriminos(Tetriminos *tetriminos, SDL_Surface *blockImg[], SDL_Surface *screen);
+void renderTetriminos(Tetriminos *tetriminos, SDL_Surface **pSurfaces);
 
 #endif //TETRIS_TETRIMINOS_H
