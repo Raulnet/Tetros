@@ -33,7 +33,8 @@ void setTetriminosJ(Tetriminos *tetriminos);
 void setTetriminosS(Tetriminos *tetriminos);
 void setTetriminosZ(Tetriminos *tetriminos);
 void setTetriminosO(Tetriminos *tetriminos);
-void setRandomTetrominos(Tetriminos *tetriminos);
+void setRandomTetrominos(Tetriminos *tetriminos, List *list) ;
+int getRandomId();
 
 void pushBlock(Block *block, int content, int nextDirection);
 

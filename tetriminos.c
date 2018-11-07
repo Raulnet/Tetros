@@ -3,6 +3,7 @@
 #include <SDL/SDL.h>
 #include <time.h>
 
+#include "list.h"
 #include "tetriminos.h"
 #include "enum.h"
 
@@ -253,15 +254,24 @@ void setTetriminosO(Tetriminos *tetriminos) {
 }
 
 int getRandomId() {
-    int randomId = 0;
-    srand(time(NULL));
-    randomId = (rand() % (6 - 0 + 1)) + 0;
-    return randomId;
+    unsigned long
+
+            num_bins = (unsigned long) NB_TETROMINOS,
+            num_rand = (unsigned long) RAND_MAX + 1,
+            bin_size = num_rand / num_bins,
+            defect = num_rand % num_bins;
+
+    long x;
+    do {
+        x = random();
+    } while (num_rand - defect <= (unsigned long) x);
+
+    return (int) (x / bin_size);
 }
 
-void setRandomTetrominos(Tetriminos *tetriminos) {
+void setRandomTetrominos(Tetriminos *tetriminos, List *list) {
     int randomId = getRandomId();
-
+    listUnshiftId(list, randomId);
     switch (randomId) {
         case I:
             tetriminos->img = RED;

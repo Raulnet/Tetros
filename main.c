@@ -4,6 +4,7 @@
 #include <SDL/SDL_image.h>
 #include "enum.h"
 #include "assets.h"
+#include "list.h"
 #include "tetriminos.h"
 
 int main() {
@@ -12,13 +13,14 @@ int main() {
     SDL_Rect positionBackground;
     int loopScreen = 1;
     SDL_Surface *pSurfaces[NB_ASSET_SURFACES] = {0};
+    List *list = initList();
 
     initAssetSurfaces(pSurfaces);
 
     Tetriminos *tetriminos = newTetriminos();
     tetriminos->positionX = DEFAULT_POSITION_TETROMINOS_WIDTH;
     tetriminos->positionY = DEFAULT_POSITION_TETROMINOS_HEIGHT;
-    setRandomTetrominos(tetriminos);
+    setRandomTetrominos(tetriminos, list);
 
     while (loopScreen) {
         SDL_WaitEvent(&event);
@@ -44,7 +46,7 @@ int main() {
                         }
                         break;
                     case SDLK_SPACE:
-                        setRandomTetrominos(tetriminos);
+                        setRandomTetrominos(tetriminos, list );
                         break;
                     default:
                         break;
@@ -63,6 +65,14 @@ int main() {
     }
     SDL_Quit();
 
+    if(list->last != NULL) {
+        Element *currentElem = list->last;
+        while (currentElem != NULL) {
+            printf("%d\n", currentElem->id);
+            currentElem = currentElem->previous;
+        }
+    }
+    free(list);
     printf("done\n");
     return 0;
 }

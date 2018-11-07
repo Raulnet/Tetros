@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "List.h"
+#include "list.h"
 
 List *initList() {
     List *list = malloc(sizeof(*list));
