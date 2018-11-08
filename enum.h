@@ -26,6 +26,10 @@ enum {
     TOP, RIGHT, BOTTOM, LEFT, NEUTRAL
 };
 
+enum {
+    CURRENT_TETROMINOS, NEXT_TETROMINOS
+};
+
 // list index IMG assets
 enum {
     SCREEN,

@@ -5,22 +5,20 @@
 #include "enum.h"
 #include "assets.h"
 #include "list.h"
-#include "tetriminos.h"
+#include "tetrominos.h"
 #include "motorRender.h"
+#include "game.h"
 
 int main() {
 
     SDL_Event event;
     int loopScreen = 1;
     SDL_Surface *pSurfaces[NB_ASSET_SURFACES] = {0};
+    Tetrominos *pTetrominos[2] = {0};
     List *list = initList();
 
     initAssetSurfaces(pSurfaces);
-
-    Tetriminos *tetriminos = newTetriminos();
-    tetriminos->positionX = DEFAULT_POSITION_TETROMINOS_WIDTH;
-    tetriminos->positionY = DEFAULT_POSITION_TETROMINOS_HEIGHT;
-    setRandomTetrominos(tetriminos, list);
+    initTetrominos(pTetrominos, list);
 
     while (loopScreen) {
         SDL_WaitEvent(&event);
@@ -34,19 +32,19 @@ int main() {
                         loopScreen = 0;
                         break;
                     case SDLK_RIGHT:
-                        tetriminos->orientation += 1;
-                        if (tetriminos->orientation > 3) {
-                            tetriminos->orientation = 0;
+                        pTetrominos[CURRENT_TETROMINOS]->orientation += 1;
+                        if (pTetrominos[CURRENT_TETROMINOS]->orientation > 3) {
+                            pTetrominos[CURRENT_TETROMINOS]->orientation = 0;
                         }
                         break;
                     case SDLK_LEFT:
-                        tetriminos->orientation -= 1;
-                        if (tetriminos->orientation < 0) {
-                            tetriminos->orientation = 3;
+                        pTetrominos[CURRENT_TETROMINOS]->orientation -= 1;
+                        if (pTetrominos[CURRENT_TETROMINOS]->orientation < 0) {
+                            pTetrominos[CURRENT_TETROMINOS]->orientation = 3;
                         }
                         break;
                     case SDLK_SPACE:
-                        setRandomTetrominos(tetriminos, list);
+                        swapTetrominos(pTetrominos, list);
                         break;
                     default:
                         break;
@@ -55,7 +53,7 @@ int main() {
                 break;
         }
 
-        renderFrame(pSurfaces, tetriminos);
+        renderFrame(pSurfaces, pTetrominos);
     }
     SDL_Quit();
 
