@@ -9,9 +9,11 @@ void renderFrame(SDL_Surface **pSurfaces, Tetrominos **pTetrominos) {
     SDL_BlitSurface(pSurfaces[BACK_WRAPPER], NULL, pSurfaces[SCREEN], &positionBackground);
 
     renderTetrominos(pTetrominos[CURRENT_TETROMINOS], pSurfaces);
-    renderTetrominos(pTetrominos[NEXT_TETROMINOS], pSurfaces);
+
 
     SDL_BlitSurface(pSurfaces[UI_WRAPPER], NULL, pSurfaces[SCREEN], &positionBackground);
+    renderTetrominos(pTetrominos[NEXT_TETROMINOS], pSurfaces);
+
 
     SDL_Flip(pSurfaces[SCREEN]);
 }

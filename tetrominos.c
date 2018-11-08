@@ -262,6 +262,7 @@ int getRandomId() {
             defect = num_rand % num_bins;
 
     long x;
+    srandom(SDL_GetTicks());
     do {
         x = random();
     } while (num_rand - defect <= (unsigned long) x);
@@ -271,6 +272,15 @@ int getRandomId() {
 
 void setRandomTetrominos(Tetrominos *tetrominos, List *list) {
     int randomId = getRandomId();
+    int try = 0;
+    if(list->last != NULL) {
+        while (try < RANDOM_ID_MAX_TRY && randomId == list->last->id){
+            printf("try: %d, randomId: %d, last: %d\n", try, randomId, list->last->id);
+            randomId = getRandomId();
+            try++;
+        }
+    }
+
     listUnshiftId(list, randomId);
     switch (randomId) {
         case I:
