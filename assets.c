@@ -6,6 +6,8 @@ void initAssetSurfaces(SDL_Surface **pSurfaces) {
     SDL_Init(SDL_INIT_VIDEO);
     pSurfaces[SCREEN] = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     pSurfaces[BACKGROUND] = IMG_Load("./img/backgrounds/background1.png");
+    pSurfaces[BACK_WRAPPER] = IMG_Load("./img/backgrounds/back.png");
+    pSurfaces[UI_WRAPPER] = IMG_Load("./img/backgrounds/wrapper_ui.png");
     pSurfaces[AQUA] = IMG_Load("./img/blocks/aqua.png");
     pSurfaces[AQUA_N] = IMG_Load("./img/blocks/aqua_n.png");
     pSurfaces[BLUE] = IMG_Load("./img/blocks/blue.png");

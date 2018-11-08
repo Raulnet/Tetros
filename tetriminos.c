@@ -9,7 +9,7 @@
 
 Block *getNewBlock() {
     Block *block = malloc(sizeof(*block));
-    block->block = NULL;
+    block->next = NULL;
     block->nextDirection = NEUTRAL;
     block->content = CLEAR;
     return block;
@@ -310,14 +310,14 @@ void pushBlock(Block *block, int content, int nextDirection) {
     Block *newBlock = getNewBlock();
     newBlock->content = content;
     newBlock->nextDirection = nextDirection;
-    if (block->block != NULL) {
-        Block *currentBlock = block->block;
-        while (currentBlock->block != NULL) {
-            currentBlock = currentBlock->block;
+    if (block->next != NULL) {
+        Block *currentBlock = block->next;
+        while (currentBlock->next != NULL) {
+            currentBlock = currentBlock->next;
         }
-        currentBlock->block = newBlock;
+        currentBlock->next = newBlock;
     } else {
-        block->block = newBlock;
+        block->next = newBlock;
     }
 }
 
@@ -339,7 +339,7 @@ void renderTetriminos(Tetriminos *tetriminos, SDL_Surface **pSurfaces) {
         currentBlock = tetriminos->templateLeft;
     }
     if (currentBlock == NULL) {
-        printf("failure block = NULL on Tetros %d", tetriminos->img);
+        printf("failure next = NULL on Tetros %d", tetriminos->img);
         exit(EXIT_FAILURE);
     }
     do {
@@ -364,7 +364,7 @@ void renderTetriminos(Tetriminos *tetriminos, SDL_Surface **pSurfaces) {
                 break;
         }
         if (currentBlock != NULL) {
-            currentBlock = currentBlock->block;
+            currentBlock = currentBlock->next;
         }
 
     } while (currentBlock != NULL);

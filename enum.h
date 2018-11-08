@@ -21,13 +21,17 @@ enum {
     CLEAR, BLOCK
 };
 
+// list index position/rotation Tetrominos
 enum {
     TOP, RIGHT, BOTTOM, LEFT, NEUTRAL
 };
 
+// list index IMG assets
 enum {
     SCREEN,
     BACKGROUND,
+    BACK_WRAPPER,
+    UI_WRAPPER,
     AQUA, AQUA_N,
     BLUE, BLUE_N,
     GREEN, GREEN_N,
@@ -40,6 +44,7 @@ enum {
     YELLOW, YELLOW_N
 };
 
+// list index Tetrominos
 enum {
     J, I, O, T, L, Z, S
 };

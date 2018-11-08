@@ -2,7 +2,7 @@
 
 #ifndef TETRIS_ASSETS_H
 #define TETRIS_ASSETS_H
-#define NB_ASSET_SURFACES 22
+#define NB_ASSET_SURFACES 24
 
 void initAssetSurfaces(SDL_Surface **pSurfaces);
 

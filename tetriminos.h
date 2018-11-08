@@ -7,7 +7,7 @@ typedef struct Block Block;
 struct Block {
     int content;
     int nextDirection;
-    Block *block;
+    Block *next;
 };
 
 typedef struct Tetriminos Tetriminos;

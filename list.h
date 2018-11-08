@@ -9,8 +9,11 @@ struct Element {
 struct List {
     Element *last;
 };
+
 List *initList();
+
 void listUnshiftId(List *list, int id);
+
 int listShiftId(List *list);
 
 #endif //TETRIS_LIST_H

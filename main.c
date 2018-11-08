@@ -6,11 +6,11 @@
 #include "assets.h"
 #include "list.h"
 #include "tetriminos.h"
+#include "motorRender.h"
 
 int main() {
 
     SDL_Event event;
-    SDL_Rect positionBackground;
     int loopScreen = 1;
     SDL_Surface *pSurfaces[NB_ASSET_SURFACES] = {0};
     List *list = initList();
@@ -46,7 +46,7 @@ int main() {
                         }
                         break;
                     case SDLK_SPACE:
-                        setRandomTetrominos(tetriminos, list );
+                        setRandomTetrominos(tetriminos, list);
                         break;
                     default:
                         break;
@@ -55,17 +55,11 @@ int main() {
                 break;
         }
 
-        positionBackground.x = 0;
-        positionBackground.y = 0;
-
-        SDL_BlitSurface(pSurfaces[BACKGROUND], NULL, pSurfaces[SCREEN], &positionBackground);
-
-        renderTetriminos(tetriminos, pSurfaces);
-        SDL_Flip(pSurfaces[SCREEN]);
+        renderFrame(pSurfaces, tetriminos);
     }
     SDL_Quit();
 
-    if(list->last != NULL) {
+    if (list->last != NULL) {
         Element *currentElem = list->last;
         while (currentElem != NULL) {
             printf("%d\n", currentElem->id);
