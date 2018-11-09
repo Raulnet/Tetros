@@ -1,5 +1,18 @@
 #include "game.h"
 
+void initLevel(int *level) {
+    level[LEVEL_1] = LEVEL_1_SPEED;
+    level[LEVEL_2] = LEVEL_2_SPEED;
+    level[LEVEL_3] = LEVEL_3_SPEED;
+    level[LEVEL_4] = LEVEL_4_SPEED;
+    level[LEVEL_5] = LEVEL_5_SPEED;
+    level[LEVEL_6] = LEVEL_6_SPEED;
+    level[LEVEL_7] = LEVEL_7_SPEED;
+    level[LEVEL_8] = LEVEL_8_SPEED;
+    level[LEVEL_9] = LEVEL_9_SPEED;
+    level[LEVEL_10] = LEVEL_10_SPEED;
+}
+
 void initTetrominos(Tetrominos **pTetrominos, List *list) {
 
     pTetrominos[CURRENT_TETROMINOS] = newTetrominos();

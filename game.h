@@ -5,6 +5,7 @@
 #ifndef TETRIS_GAME_H
 #define TETRIS_GAME_H
 
+void initLevel(int *level);
 void initTetrominos(Tetrominos **pTetrominos, List *list);
 void swapTetrominos(Tetrominos **pTetrominos, List *list);
 

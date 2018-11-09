@@ -61,5 +61,29 @@ enum {
     J, I, O, T, L, Z, S
 };
 
+#define LEVEL_1_SPEED 1000
+#define LEVEL_2_SPEED 900
+#define LEVEL_3_SPEED 800
+#define LEVEL_4_SPEED 700
+#define LEVEL_5_SPEED 600
+#define LEVEL_6_SPEED 500
+#define LEVEL_7_SPEED 400
+#define LEVEL_8_SPEED 300
+#define LEVEL_9_SPEED 200
+#define LEVEL_10_SPEED 100
+
+enum {
+    LEVEL_1,
+    LEVEL_2,
+    LEVEL_3,
+    LEVEL_4,
+    LEVEL_5,
+    LEVEL_6,
+    LEVEL_7,
+    LEVEL_8,
+    LEVEL_9,
+    LEVEL_10
+};
+
 
 #endif //TETRIS_ENUM_H
