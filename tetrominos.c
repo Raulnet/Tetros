@@ -18,6 +18,7 @@ Block *getNewBlock() {
 Tetrominos *newTetrominos() {
     Tetrominos *tetrominos = malloc(sizeof(*tetrominos));
     tetrominos->img = GREY;
+    tetrominos->onLock = 0;
     tetrominos->positionX = 0;
     tetrominos->positionY = 0;
     tetrominos->orientation = TOP;
@@ -275,7 +276,6 @@ void setRandomTetrominos(Tetrominos *tetrominos, List *list) {
     int try = 0;
     if(list->last != NULL) {
         while (try < RANDOM_ID_MAX_TRY && randomId == list->last->id){
-            printf("try: %d, randomId: %d, last: %d\n", try, randomId, list->last->id);
             randomId = getRandomId();
             try++;
         }
@@ -378,4 +378,8 @@ void renderTetrominos(Tetrominos *tetrominos, SDL_Surface **pSurfaces) {
         }
 
     } while (currentBlock != NULL);
+}
+
+void dropTetrominos(Tetrominos *tetrominos) {
+tetrominos->positionY += 42;
 }

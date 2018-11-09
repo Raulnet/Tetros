@@ -12,16 +12,20 @@
 int main() {
 
     SDL_Event event;
-    int loopScreen = 1;
+    int loopScreen = 1, currentTime = 0, previousTime = 0;
     SDL_Surface *pSurfaces[NB_ASSET_SURFACES] = {0};
     Tetrominos *pTetrominos[2] = {0};
+    int pit[PIT_NB_BLOCKS_HEIGHT][PIT_NB_BLOCKS_WIDTH];
     List *list = initList();
+
+    initPit(pit);
+
 
     initAssetSurfaces(pSurfaces);
     initTetrominos(pTetrominos, list);
 
     while (loopScreen) {
-        SDL_WaitEvent(&event);
+        SDL_PollEvent(&event);
         switch (event.type) {
             case SDL_QUIT:
                 loopScreen = 0;
@@ -53,7 +57,13 @@ int main() {
                 break;
         }
 
-        renderFrame(pSurfaces, pTetrominos);
+        currentTime = SDL_GetTicks();
+        if (currentTime - previousTime > 999) {
+            dropTetrominos(pTetrominos[CURRENT_TETROMINOS]);
+            previousTime = currentTime;
+        }
+
+        renderFrame(pit, pSurfaces, pTetrominos);
     }
     SDL_Quit();
 
@@ -67,4 +77,8 @@ int main() {
     free(list);
     printf("done\n");
     return 0;
+}
+
+void initMap(int (*map)[12]) {
+
 }

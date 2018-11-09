@@ -16,5 +16,5 @@ add_executable(
         assets.c assets.h
         list.c list.h
         motorRender.c motorRender.h
-)
+        pit.c pit.h)
 target_link_libraries(Tetris ${SDL_LIBRARY} ${SDL_IMAGE_LIBRARY})

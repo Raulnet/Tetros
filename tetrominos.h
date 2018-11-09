@@ -15,6 +15,7 @@ typedef struct Tetrominos Tetrominos;
 struct Tetrominos {
     int img;
     int orientation;
+    int onLock;
     Sint16 positionX;
     Sint16 positionY;
     Block *templateTop;
@@ -48,5 +49,7 @@ int getRandomId();
 void pushBlock(Block *block, int content, int nextDirection);
 
 void renderTetrominos(Tetrominos *tetrominos, SDL_Surface **pSurfaces);
+
+void dropTetrominos(Tetrominos *tetrominos);
 
 #endif //TETRIS_TETRIMINOS_H
