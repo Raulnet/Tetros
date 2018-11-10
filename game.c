@@ -26,6 +26,53 @@ void initTetrominos(Tetrominos **pTetrominos, List *list) {
     setRandomTetrominos(pTetrominos[NEXT_TETROMINOS], list);
 }
 
+void lockTetrominos(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH]) {
+    Block *currentBlock = NULL;
+    switch (tetrominos->orientation) {
+        case TOP:
+            currentBlock = tetrominos->templateTop;
+            break;
+        case RIGHT:
+            currentBlock = tetrominos->templateRight;
+            break;
+        case BOTTOM:
+            currentBlock = tetrominos->templateBottom;
+            break;
+        case LEFT:
+            currentBlock = tetrominos->templateLeft;
+            break;
+        default:
+            break;
+    }
+    int positionY = tetrominos->positionY - PIT_Y_ZERO - SIZE_BLOCK;
+    int positionX = tetrominos->positionX - PIT_X_ZERO;
+    int row = positionY / SIZE_BLOCK;
+    int column = positionX / SIZE_BLOCK;
+    while (currentBlock != NULL) {
+        if (currentBlock->content == BLOCK) {
+            pit[row][column] = tetrominos->img;
+        }
+        switch (currentBlock->nextDirection) {
+            case TOP:
+                row -= 1;
+                break;
+            case BOTTOM:
+                row += 1;
+                break;
+            case LEFT:
+                column -= 1;
+                break;
+            case RIGHT:
+                column += 1;
+                break;
+            default:
+                break;
+        }
+        currentBlock = currentBlock->next;
+    }
+
+}
+
 void swapTetrominos(Tetrominos **pTetrominos, List *list) {
     Tetrominos *tetrominos = pTetrominos[CURRENT_TETROMINOS];
     pTetrominos[CURRENT_TETROMINOS] = pTetrominos[NEXT_TETROMINOS];

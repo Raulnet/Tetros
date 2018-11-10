@@ -8,5 +8,6 @@
 void initLevel(int *level);
 void initTetrominos(Tetrominos **pTetrominos, List *list);
 void swapTetrominos(Tetrominos **pTetrominos, List *list);
+void lockTetrominos(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH]);
 
 #endif //TETRIS_GAME_H

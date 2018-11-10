@@ -36,6 +36,10 @@ int main() {
             moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, GO_BOTTOM);
             previousTime = currentTime;
         }
+        if(pTetrominos[CURRENT_TETROMINOS]->onLock) {
+            lockTetrominos(pTetrominos[CURRENT_TETROMINOS], pit);
+            swapTetrominos(pTetrominos, list);
+        }
         if(currentTime-timeFrame > TIME_FRAME) {
             renderFrame(pit, pSurfaces, pTetrominos);
             timeFrame = currentTime;

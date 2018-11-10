@@ -69,7 +69,7 @@ void moveTetrominos(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int
                 break;
         }
     } else {
-        if(move == GO_BOTTOM) {
+        if(move == GO_BOTTOM && tetrominos->onLock == 0) {
             tetrominos->onLock = 1;
         }
     }
