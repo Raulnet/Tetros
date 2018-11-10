@@ -70,11 +70,7 @@ void moveTetrominos(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int
         }
     } else {
         if(move == GO_BOTTOM) {
-            if(tetrominos->onLock) {
-                // TODO LOCK TETROS
-            } else {
-                tetrominos->onLock = 1;
-            }
+            tetrominos->onLock = 1;
         }
     }
 
@@ -171,12 +167,16 @@ int availableToMove(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int
         switch (currentBlock->nextDirection) {
             case TOP:
                 row -= 1;
+                break;
             case BOTTOM:
                 row += 1;
+                break;
             case LEFT:
                 column -= 1;
+                break;
             case RIGHT:
                 column += 1;
+                break;
             default:
                 break;
         }

@@ -33,14 +33,14 @@ int main() {
             handleEvent(event, &loopScreen, pTetrominos, list, pit);
         }
         if (currentTime - previousTime > level[LEVEL_5]) {
-            moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, GO_BOTTOM);
+//            moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, GO_BOTTOM);
             previousTime = currentTime;
         }
-        if(currentTime-timeFrame > 50) {
+        if(currentTime-timeFrame > TIME_FRAME) {
             renderFrame(pit, pSurfaces, pTetrominos);
             timeFrame = currentTime;
         } else {
-            SDL_Delay(50 - (currentTime-timeFrame));
+            SDL_Delay(TIME_FRAME - (currentTime-timeFrame));
         }
 
 

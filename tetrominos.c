@@ -356,6 +356,7 @@ void renderTetrominos(Tetrominos *tetrominos, SDL_Surface **pSurfaces) {
         if (currentBlock->content == BLOCK) {
             SDL_BlitSurface(pSurfaces[tetrominos->img], NULL, pSurfaces[SCREEN], &blockPosition);
         } else {
+            // TODO-DEBUG
 //            SDL_BlitSurface(pSurfaces[GREY], NULL, pSurfaces[SCREEN], &blockPosition);
         }
         switch (currentBlock->nextDirection) {
