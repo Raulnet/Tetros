@@ -13,6 +13,9 @@ void handleEvent(
             break;
         case SDL_KEYDOWN:
             switch (event.key.keysym.sym) {
+                case SDLK_PAGEUP:
+                    SDL_Delay(10000);
+                    break;
                 case SDLK_ESCAPE:
                     *loopScreen = 0;
                     break;
@@ -69,7 +72,7 @@ void moveTetrominos(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int
                 break;
         }
     } else {
-        if(move == GO_BOTTOM && tetrominos->onLock == 0) {
+        if (move == GO_BOTTOM && tetrominos->onLock == 0) {
             tetrominos->onLock = 1;
         }
     }
@@ -158,7 +161,7 @@ int availableToMove(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int
                 printf("STOP BOTTOM\n");
                 return 0;
             }
-            if(pit[row][column] != EMPTY && row >=0) {
+            if (pit[row][column] != EMPTY && row >= 0) {
                 printf("row: %d, column: %d\n", row, column);
                 printf("rowcolum:%d\n", pit[row][column]);
                 return 0;

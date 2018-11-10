@@ -29,3 +29,32 @@ void renderPit(int (*pit)[PIT_NB_BLOCKS_WIDTH], SDL_Surface **pSurfaces){
         blockPosition.y += 42;
     }
 }
+
+void clearRowPit(int (*pit)[PIT_NB_BLOCKS_WIDTH]){
+    int countBlock = 0;
+    for (int row = 0; row < PIT_NB_BLOCKS_HEIGHT; ++row) {
+        for (int column = 0; column < PIT_NB_BLOCKS_WIDTH; ++column) {
+            if(pit[row][column] != CLEAR) {
+                countBlock++;
+            }
+        }
+        if(countBlock == PIT_NB_BLOCKS_WIDTH) {
+            for (int column = 0; column < PIT_NB_BLOCKS_WIDTH; ++column) {
+                pit[row][column] = CLEAR;
+            }
+            dropRow(pit, row);
+        }
+        countBlock = 0;
+    }
+}
+
+void dropRow(int (*pit)[PIT_NB_BLOCKS_WIDTH], int rowCleared) {
+    for (int row = rowCleared; row >= 0 ; --row) {
+        for (int column = 0; column < PIT_NB_BLOCKS_WIDTH; ++column) {
+            int previousRow = row-1;
+            if(previousRow >= 0) {
+                pit[row][column] = pit[row-1][column];
+            }
+        }
+    }
+}

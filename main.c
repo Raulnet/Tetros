@@ -9,6 +9,7 @@
 #include "motorRender.h"
 #include "game.h"
 #include "move.h"
+#include "pit.h"
 
 int main() {
 
@@ -32,13 +33,14 @@ int main() {
         while (SDL_PollEvent(&event)) {
             handleEvent(event, &loopScreen, pTetrominos, list, pit);
         }
-        if (currentTime - previousTime > level[LEVEL_5]) {
+        if (currentTime - previousTime > level[LEVEL_8]) {
             moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, GO_BOTTOM);
             previousTime = currentTime;
         }
         if(pTetrominos[CURRENT_TETROMINOS]->onLock) {
             lockTetrominos(pTetrominos[CURRENT_TETROMINOS], pit);
             swapTetrominos(pTetrominos, list);
+            clearRowPit(pit);
         }
         if(currentTime-timeFrame > TIME_FRAME) {
             renderFrame(pit, pSurfaces, pTetrominos);
