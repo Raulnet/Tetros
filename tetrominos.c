@@ -37,7 +37,7 @@ void setTetrominosI(Tetrominos *tetrominos) {
     pushBlock(horizontalBlock, BLOCK, RIGHT);
     pushBlock(horizontalBlock, BLOCK, RIGHT);
     pushBlock(horizontalBlock, BLOCK, RIGHT);
-    pushBlock(horizontalBlock, BLOCK, RIGHT);
+    pushBlock(horizontalBlock, BLOCK, NEUTRAL);
     tetrominos->templateTop = horizontalBlock;
     tetrominos->templateBottom = horizontalBlock;
 
@@ -48,7 +48,7 @@ void setTetrominosI(Tetrominos *tetrominos) {
     pushBlock(verticalBlock, BLOCK, BOTTOM);
     pushBlock(verticalBlock, BLOCK, BOTTOM);
     pushBlock(verticalBlock, BLOCK, BOTTOM);
-    pushBlock(verticalBlock, BLOCK, BOTTOM);
+    pushBlock(verticalBlock, BLOCK, NEUTRAL);
 
     tetrominos->templateLeft = verticalBlock;
     tetrominos->templateRight = verticalBlock;
@@ -62,7 +62,7 @@ void setTetrominosT(Tetrominos *tetrominos) {
     pushBlock(horizontalTop, BLOCK, RIGHT);
     pushBlock(horizontalTop, BLOCK, BOTTOM);
     pushBlock(horizontalTop, CLEAR, LEFT);
-    pushBlock(horizontalTop, BLOCK, LEFT);
+    pushBlock(horizontalTop, BLOCK, NEUTRAL);
     tetrominos->templateTop = horizontalTop;
 
     Block *horizontalBottom = getNewBlock();
@@ -73,7 +73,7 @@ void setTetrominosT(Tetrominos *tetrominos) {
     pushBlock(horizontalBottom, BLOCK, RIGHT);
     pushBlock(horizontalBottom, BLOCK, TOP);
     pushBlock(horizontalBottom, CLEAR, LEFT);
-    pushBlock(horizontalBottom, BLOCK, LEFT);
+    pushBlock(horizontalBottom, BLOCK, NEUTRAL);
     tetrominos->templateBottom = horizontalBottom;
 
     Block *verticalBlockRight = getNewBlock();
@@ -83,7 +83,7 @@ void setTetrominosT(Tetrominos *tetrominos) {
     pushBlock(verticalBlockRight, BLOCK, BOTTOM);
     pushBlock(verticalBlockRight, BLOCK, LEFT);
     pushBlock(verticalBlockRight, CLEAR, TOP);
-    pushBlock(verticalBlockRight, BLOCK, TOP);
+    pushBlock(verticalBlockRight, BLOCK, NEUTRAL);
 
     tetrominos->templateRight = verticalBlockRight;
 
@@ -94,7 +94,7 @@ void setTetrominosT(Tetrominos *tetrominos) {
     pushBlock(verticalBlockLeft, BLOCK, BOTTOM);
     pushBlock(verticalBlockLeft, BLOCK, RIGHT);
     pushBlock(verticalBlockLeft, CLEAR, TOP);
-    pushBlock(verticalBlockLeft, BLOCK, TOP);
+    pushBlock(verticalBlockLeft, BLOCK, NEUTRAL);
 
     tetrominos->templateLeft = verticalBlockLeft;
 
@@ -109,7 +109,7 @@ void setTetrominosL(Tetrominos *tetrominos) {
     pushBlock(horizontalTop, BLOCK, BOTTOM);
     pushBlock(horizontalTop, CLEAR, LEFT);
     pushBlock(horizontalTop, CLEAR, LEFT);
-    pushBlock(horizontalTop, BLOCK, LEFT);
+    pushBlock(horizontalTop, BLOCK, NEUTRAL);
     tetrominos->templateTop = horizontalTop;
 
     Block *horizontalBottom = getNewBlock();
@@ -119,7 +119,7 @@ void setTetrominosL(Tetrominos *tetrominos) {
     pushBlock(horizontalBottom, BLOCK, RIGHT);
     pushBlock(horizontalBottom, BLOCK, RIGHT);
     pushBlock(horizontalBottom, BLOCK, TOP);
-    pushBlock(horizontalBottom, BLOCK, LEFT);
+    pushBlock(horizontalBottom, BLOCK, NEUTRAL);
     tetrominos->templateBottom = horizontalBottom;
 
     Block *verticalBlockRight = getNewBlock();
@@ -127,7 +127,7 @@ void setTetrominosL(Tetrominos *tetrominos) {
     verticalBlockRight->nextDirection = RIGHT;
     pushBlock(verticalBlockRight, BLOCK, BOTTOM);
     pushBlock(verticalBlockRight, BLOCK, BOTTOM);
-    pushBlock(verticalBlockRight, BLOCK, LEFT);
+    pushBlock(verticalBlockRight, BLOCK, NEUTRAL);
 
     tetrominos->templateRight = verticalBlockRight;
 
@@ -137,7 +137,7 @@ void setTetrominosL(Tetrominos *tetrominos) {
     pushBlock(verticalBlockLeft, BLOCK, BOTTOM);
     pushBlock(verticalBlockLeft, BLOCK, BOTTOM);
     pushBlock(verticalBlockLeft, BLOCK, RIGHT);
-    pushBlock(verticalBlockLeft, BLOCK, TOP);
+    pushBlock(verticalBlockLeft, BLOCK, NEUTRAL);
 
     tetrominos->templateLeft = verticalBlockLeft;
 
@@ -246,7 +246,7 @@ void setTetrominosO(Tetrominos *tetrominos) {
     pushBlock(block, BLOCK, RIGHT);
     pushBlock(block, BLOCK, BOTTOM);
     pushBlock(block, BLOCK, LEFT);
-    pushBlock(block, BLOCK, LEFT);
+    pushBlock(block, BLOCK, NEUTRAL);
 
     tetrominos->templateTop = block;
     tetrominos->templateBottom = block;
@@ -336,25 +336,27 @@ void renderTetrominos(Tetrominos *tetrominos, SDL_Surface **pSurfaces) {
     blockPosition.x = tetrominos->positionX;
     blockPosition.y = tetrominos->positionY;
     Block *currentBlock = NULL;
-    if (tetrominos->orientation == TOP) {
-        currentBlock = tetrominos->templateTop;
-    }
-    if (tetrominos->orientation == BOTTOM) {
-        currentBlock = tetrominos->templateBottom;
-    }
-    if (tetrominos->orientation == RIGHT) {
-        currentBlock = tetrominos->templateRight;
-    }
-    if (tetrominos->orientation == LEFT) {
-        currentBlock = tetrominos->templateLeft;
-    }
-    if (currentBlock == NULL) {
-        printf("failure next = NULL on Tetros %d", tetrominos->img);
-        exit(EXIT_FAILURE);
+    switch (tetrominos->orientation) {
+        case TOP:
+            currentBlock = tetrominos->templateTop;
+            break;
+        case RIGHT:
+            currentBlock = tetrominos->templateRight;
+            break;
+        case BOTTOM:
+            currentBlock = tetrominos->templateBottom;
+            break;
+        case LEFT:
+            currentBlock = tetrominos->templateLeft;
+            break;
+        default:
+            break;
     }
     do {
         if (currentBlock->content == BLOCK) {
             SDL_BlitSurface(pSurfaces[tetrominos->img], NULL, pSurfaces[SCREEN], &blockPosition);
+        } else {
+//            SDL_BlitSurface(pSurfaces[GREY], NULL, pSurfaces[SCREEN], &blockPosition);
         }
         switch (currentBlock->nextDirection) {
             case TOP:
@@ -380,6 +382,3 @@ void renderTetrominos(Tetrominos *tetrominos, SDL_Surface **pSurfaces) {
     } while (currentBlock != NULL);
 }
 
-void dropTetrominos(Tetrominos *tetrominos) {
-tetrominos->positionY += 42;
-}

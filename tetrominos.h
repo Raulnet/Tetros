@@ -50,6 +50,4 @@ void pushBlock(Block *block, int content, int nextDirection);
 
 void renderTetrominos(Tetrominos *tetrominos, SDL_Surface **pSurfaces);
 
-void dropTetrominos(Tetrominos *tetrominos);
-
 #endif //TETRIS_TETRIMINOS_H

@@ -8,65 +8,44 @@
 #include "tetrominos.h"
 #include "motorRender.h"
 #include "game.h"
+#include "move.h"
 
 int main() {
 
     SDL_Event event;
-    int loopScreen = 1, currentTime = 0, previousTime = 0;
+    int loopScreen = 1;
     SDL_Surface *pSurfaces[NB_ASSET_SURFACES] = {0};
     Tetrominos *pTetrominos[2] = {0};
     int pit[PIT_NB_BLOCKS_HEIGHT][PIT_NB_BLOCKS_WIDTH];
     int level[10];
-    List *list = initList();
+    Uint32 timeFrame = 0, currentTime = 0, previousTime = 0;
 
+    SDL_Init(SDL_INIT_VIDEO);
+    List *list = initList();
     initPit(pit);
     initLevel(level);
     initAssetSurfaces(pSurfaces);
     initTetrominos(pTetrominos, list);
 
     while (loopScreen) {
-        SDL_PollEvent(&event);
-        switch (event.type) {
-            case SDL_QUIT:
-                loopScreen = 0;
-                break;
-            case SDL_KEYDOWN:
-                printf("key down:\n");
-                switch (event.key.keysym.sym) {
-                    case SDLK_ESCAPE:
-                        loopScreen = 0;
-                        break;
-                    case SDLK_RIGHT:
-                        pTetrominos[CURRENT_TETROMINOS]->orientation += 1;
-                        if (pTetrominos[CURRENT_TETROMINOS]->orientation > 3) {
-                            pTetrominos[CURRENT_TETROMINOS]->orientation = 0;
-                        }
-                        break;
-                    case SDLK_LEFT:
-                        pTetrominos[CURRENT_TETROMINOS]->orientation -= 1;
-                        if (pTetrominos[CURRENT_TETROMINOS]->orientation < 0) {
-                            pTetrominos[CURRENT_TETROMINOS]->orientation = 3;
-                        }
-                        printf("switch left:\n");
-                        break;
-                    case SDLK_SPACE:
-                        swapTetrominos(pTetrominos, list);
-                        break;
-                    default:
-                        break;
-                }
-            default:
-                break;
-        }
-
         currentTime = SDL_GetTicks();
+        while (SDL_PollEvent(&event)) {
+            handleEvent(event, &loopScreen, pTetrominos, list, pit);
+        }
         if (currentTime - previousTime > level[LEVEL_5]) {
-            dropTetrominos(pTetrominos[CURRENT_TETROMINOS]);
+            moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, GO_BOTTOM);
             previousTime = currentTime;
         }
+        if(currentTime-timeFrame > 50) {
+            renderFrame(pit, pSurfaces, pTetrominos);
+            timeFrame = currentTime;
+        } else {
+            SDL_Delay(50 - (currentTime-timeFrame));
+        }
 
-        renderFrame(pit, pSurfaces, pTetrominos);
+
     }
+
     SDL_Quit();
 
     if (list->last != NULL) {
