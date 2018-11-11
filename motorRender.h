@@ -1,6 +1,5 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
-#include "list.h"
 #include "tetrominos.h"
 #include "enum.h"
 #include "pit.h"
@@ -21,6 +20,7 @@ void renderPerformance(
         SDL_Rect position,
         Sint16 positionX,
         Sint16 positionY,
-        char *performance);
+        char *performance
+        );
 
 #endif //TETRIS_MOTORRENDER_H

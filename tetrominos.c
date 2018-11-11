@@ -156,10 +156,9 @@ void setTetrominosJ(Tetrominos *tetrominos) {
     Block *horizontalBottom = getNewBlock();
     horizontalBottom->content = CLEAR;
     horizontalBottom->nextDirection = BOTTOM;
-    pushBlock(horizontalBottom, CLEAR, BOTTOM);
+    pushBlock(horizontalBottom, BLOCK, BOTTOM);
     pushBlock(horizontalBottom, BLOCK, RIGHT);
     pushBlock(horizontalBottom, BLOCK, RIGHT);
-    pushBlock(horizontalBottom, BLOCK, TOP);
     pushBlock(horizontalBottom, BLOCK, NEUTRAL);
     tetrominos->templateBottom = horizontalBottom;
 
@@ -288,7 +287,7 @@ void setRandomTetrominos(Tetrominos *tetrominos, List *list) {
             setTetrominosI(tetrominos);
             break;
         case J:
-            tetrominos->img = BLUE;
+            tetrominos->img = SKY;
             setTetrominosJ(tetrominos);
             break;
         case O:

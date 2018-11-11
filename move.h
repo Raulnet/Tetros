@@ -1,7 +1,6 @@
 #include <SDL_events.h>
 #include "tetrominos.h"
 #include "list.h"
-#include "game.h"
 #include "enum.h"
 
 #ifndef TETRIS_MOVE_H

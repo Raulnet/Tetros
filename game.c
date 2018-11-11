@@ -1,5 +1,186 @@
 #include "game.h"
 
+void launchGame() {
+    SDL_Event event;
+    int loopScreen = 1;
+    int playGame = 0;
+    TTF_Font *font = TTF_OpenFont("font/game_over.ttf", 82);
+    char welcome[20] = "WELCOME";
+    char startGame[20] = "PRESS ENTER !!!";
+    SDL_Surface *pSurfaces[NB_ASSET_SURFACES] = {0};
+    SDL_Rect position;
+
+    initAssetSurfaces(pSurfaces);
+
+    while (loopScreen) {
+        SDL_WaitEvent(&event);
+        switch (event.type) {
+            case SDL_QUIT:
+                loopScreen = 0;
+                break;
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.sym) {
+                    case SDLK_ESCAPE:
+                        loopScreen = 0;
+                        break;
+                    case SDLK_RETURN:
+                        loopScreen = 0;
+                        printf("PRESS ENTER OK :) \n");
+                        playGame = 1;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+        position.x = 0;
+        position.y = 0;
+
+        SDL_BlitSurface(pSurfaces[BACK_WRAPPER], NULL, pSurfaces[SCREEN], &position);
+        SDL_BlitSurface(pSurfaces[UI_WRAPPER], NULL, pSurfaces[SCREEN], &position);
+
+        renderPerformance(pSurfaces[SCREEN], font, position, 125, 250, welcome);
+        renderPerformance(pSurfaces[SCREEN], font, position, 95, 290, startGame);
+        SDL_Flip(pSurfaces[SCREEN]);
+
+    }
+    if (playGame) {
+        play(pSurfaces, font);
+    }
+
+    done(pSurfaces, font);
+    TTF_CloseFont(font);
+    TTF_Quit();
+}
+
+void play(
+        SDL_Surface **pSurfaces,
+        TTF_Font *font
+) {
+    SDL_Event event;
+
+    do {
+        Tetrominos *pTetrominos[2] = {0};
+        int pit[PIT_NB_BLOCKS_HEIGHT][PIT_NB_BLOCKS_WIDTH];
+        int level[10];
+
+        int perfomance[PERFORMANCE_NB] = {0};
+        int currentLevel = 0;
+        int loopScreen = 1;
+        Uint32 timeFrame = 0, currentTime = 0, previousTime = 0;
+
+        List *list = initList();
+        initPit(pit);
+        initLevel(level);
+
+        initTetrominos(pTetrominos, list);
+        // INIT PERFOMANCE
+        perfomance[PERFORMANCE_SCORE] = 0;
+        perfomance[PERFORMANCE_TOTAL_SCORE] = 0;
+        perfomance[PERFORMANCE_LINE] = 0;
+        perfomance[PERFORMANCE_COMBO] = 1;
+        perfomance[PERFORMANCE_LEVEL] = 1;
+
+        while (loopScreen) {
+            currentTime = SDL_GetTicks();
+            currentLevel = resolveLevel(perfomance[PERFORMANCE_LINE]) + 1;
+            perfomance[PERFORMANCE_LEVEL] = currentLevel;
+            while (SDL_PollEvent(&event)) {
+                handleEvent(event, &loopScreen, pTetrominos, list, pit, perfomance);
+            }
+            if (currentTime - previousTime > level[currentLevel]) {
+                moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, GO_BOTTOM, perfomance);
+                previousTime = currentTime;
+            }
+            if (pTetrominos[CURRENT_TETROMINOS]->onLock) {
+                lockTetrominos(pTetrominos[CURRENT_TETROMINOS], pit);
+                swapTetrominos(pTetrominos, list);
+                if (!availableToMove(pTetrominos[CURRENT_TETROMINOS], pit, GO_BOTTOM)) {
+                    loopScreen = 0;
+                }
+                perfomance[PERFORMANCE_SCORE]++;
+                clearRowPit(pit, perfomance);
+            }
+            if (currentTime - timeFrame > TIME_FRAME) {
+                renderFrame(pit, pSurfaces, pTetrominos, perfomance, font);
+                timeFrame = currentTime;
+                perfomance[PERFORMANCE_SCORE] = 0;
+            } else {
+                SDL_Delay(TIME_FRAME - (currentTime - timeFrame));
+            }
+        }
+
+    } while (askPlayAgain(pSurfaces, font));
+}
+
+int askPlayAgain(
+        SDL_Surface **pSurfaces,
+        TTF_Font *font
+) {
+    int playAgain = 0;
+    SDL_Event event;
+    int loopScreen = 1;
+    char tryAgain[20] = "TRY AGAIN ???";
+    char pressEnter[20] = "PRESS ENTER/ESCAPE";
+    SDL_Rect position;
+
+    while (loopScreen) {
+        SDL_WaitEvent(&event);
+        switch (event.type) {
+            case SDL_QUIT:
+                loopScreen = 0;
+                break;
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.sym) {
+                    case SDLK_ESCAPE:
+                        playAgain = 0;
+                        loopScreen = 0;
+                        break;
+                    case SDLK_RETURN:
+                        printf("PRESS ENTER TO PLAY AGAIN!!! \n");
+                        playAgain = 1;
+                        loopScreen = 0;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+        position.x = 0;
+        position.y = 0;
+
+        SDL_BlitSurface(pSurfaces[BACK_WRAPPER], NULL, pSurfaces[SCREEN], &position);
+        SDL_BlitSurface(pSurfaces[UI_WRAPPER], NULL, pSurfaces[SCREEN], &position);
+
+        renderPerformance(pSurfaces[SCREEN], font, position, 100, 250, tryAgain);
+        renderPerformance(pSurfaces[SCREEN], font, position, 45, 290, pressEnter);
+        SDL_Flip(pSurfaces[SCREEN]);
+    }
+    return playAgain;
+}
+
+void done(
+        SDL_Surface **pSurfaces,
+        TTF_Font *font
+) {
+    char tanks[20] = "THANKS FOR PLAYING";
+    char bye[20] = "SEE YOU SOON";
+    SDL_Rect position;
+    position.x = 0;
+    position.y = 0;
+
+    SDL_BlitSurface(pSurfaces[BACK_WRAPPER], NULL, pSurfaces[SCREEN], &position);
+    SDL_BlitSurface(pSurfaces[UI_WRAPPER], NULL, pSurfaces[SCREEN], &position);
+
+    renderPerformance(pSurfaces[SCREEN], font, position, 45, 300, tanks);
+    renderPerformance(pSurfaces[SCREEN], font, position, 105, 350, bye);
+    SDL_Flip(pSurfaces[SCREEN]);
+    SDL_Delay(4000);
+}
+
 void initLevel(int *level) {
     level[LEVEL_1] = LEVEL_1_SPEED;
     level[LEVEL_2] = LEVEL_2_SPEED;

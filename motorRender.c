@@ -27,7 +27,7 @@ void renderFrame(
 
     renderTetrominos(pTetrominos[NEXT_TETROMINOS], pSurfaces);
 
-    int totalScore = performance[PERFORMANCE_TOTAL_SCORE]+=(performance[PERFORMANCE_SCORE]*performance[PERFORMANCE_COMBO]);
+    int totalScore = performance[PERFORMANCE_TOTAL_SCORE]+=(performance[PERFORMANCE_SCORE]*performance[PERFORMANCE_COMBO]*(performance[PERFORMANCE_LEVEL]+1));
     sprintf(wordsPerformance, "Score: %d", totalScore);
     Sint16 positionY = 60;
     int lineHeight = 50;
