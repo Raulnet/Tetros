@@ -30,7 +30,8 @@ void renderPit(int (*pit)[PIT_NB_BLOCKS_WIDTH], SDL_Surface **pSurfaces){
     }
 }
 
-void clearRowPit(int (*pit)[PIT_NB_BLOCKS_WIDTH]){
+void clearRowPit(int (*pit)[PIT_NB_BLOCKS_WIDTH], int performance[4]){
+    int countRowDroped = 0;
     int countBlock = 0;
     for (int row = 0; row < PIT_NB_BLOCKS_HEIGHT; ++row) {
         for (int column = 0; column < PIT_NB_BLOCKS_WIDTH; ++column) {
@@ -41,10 +42,18 @@ void clearRowPit(int (*pit)[PIT_NB_BLOCKS_WIDTH]){
         if(countBlock == PIT_NB_BLOCKS_WIDTH) {
             for (int column = 0; column < PIT_NB_BLOCKS_WIDTH; ++column) {
                 pit[row][column] = CLEAR;
+                performance[PERFORMANCE_SCORE] ++;
             }
+            performance[PERFORMANCE_LINE]++;
+            countRowDroped ++;
             dropRow(pit, row);
         }
         countBlock = 0;
+    }
+    if(countRowDroped > 0) {
+        performance[PERFORMANCE_COMBO]*=countRowDroped;
+    } else {
+        performance[PERFORMANCE_COMBO] = 1;
     }
 }
 

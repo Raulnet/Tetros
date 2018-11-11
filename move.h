@@ -12,11 +12,13 @@ void handleEvent(
         int *loopScreen,
         Tetrominos **pTetrominos,
         List *list,
-        int (*pit)[PIT_NB_BLOCKS_WIDTH]
+        int (*pit)[PIT_NB_BLOCKS_WIDTH],
+        int performance[PERFORMANCE_NB]
 );
 
-void moveTetrominos(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int move);
+void moveTetrominos(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int move, int performance[PERFORMANCE_NB]);
 
 int availableToMove(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int move);
+int resoleMovement(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int move, int performance[PERFORMANCE_NB]);
 
 #endif //TETRIS_MOVE_H

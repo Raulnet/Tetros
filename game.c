@@ -85,3 +85,35 @@ void swapTetrominos(Tetrominos **pTetrominos, List *list) {
     setRandomTetrominos(pTetrominos[NEXT_TETROMINOS], list);
     free(tetrominos);
 }
+
+int resolveLevel(int performanceLine) {
+    if (performanceLine >= 100) {
+        return LEVEL_10;
+    }
+    if (performanceLine >= 90) {
+        return LEVEL_9;
+    }
+    if (performanceLine >= 80) {
+        return LEVEL_8;
+    }
+    if (performanceLine >= 70) {
+        return LEVEL_7;
+    }
+    if (performanceLine >= 60) {
+        return LEVEL_6;
+    }
+    if (performanceLine >= 50) {
+        return LEVEL_5;
+    }
+    if (performanceLine >= 40) {
+        return LEVEL_4;
+    }
+    if (performanceLine >= 30) {
+        return LEVEL_3;
+    }
+    if (performanceLine >= 20) {
+        return LEVEL_2;
+    }
+    return LEVEL_1;
+
+}

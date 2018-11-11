@@ -13,7 +13,7 @@
 #define NB_TETROMINOS 7
 
 #define SIZE_BLOCK 42
-#define TIME_FRAME 50
+#define TIME_FRAME 17
 
 #define DEFAULT_POSITION_TETROMINOS_HEIGHT 69
 #define DEFAULT_POSITION_TETROMINOS_WIDTH 135
@@ -28,6 +28,14 @@
 enum {
     CLEAR, BLOCK
 };
+#define PERFORMANCE_NB 5
+enum {
+    PERFORMANCE_SCORE,
+    PERFORMANCE_LEVEL,
+    PERFORMANCE_TOTAL_SCORE,
+    PERFORMANCE_LINE,
+    PERFORMANCE_COMBO
+};
 
 // list index position/orientation Tetrominos
 enum {
@@ -36,7 +44,7 @@ enum {
 
 // list index Movement Tetrominos
 enum {
-    GO_LEFT, GO_RIGHT, GO_BOTTOM, FLIP_LEFT, FLIP_RIGHT
+    GO_LEFT, GO_RIGHT, GO_BOTTOM, FLIP_LEFT, FLIP_RIGHT, HARD_DROP
 };
 
 enum {
@@ -47,6 +55,7 @@ enum {
 enum {
     EMPTY,
     SCREEN,
+    TEXT_SCORE,
     BACKGROUND,
     BACK_WRAPPER,
     UI_WRAPPER,
@@ -68,15 +77,15 @@ enum {
 };
 
 #define LEVEL_1_SPEED 1000
-#define LEVEL_2_SPEED 900
-#define LEVEL_3_SPEED 800
-#define LEVEL_4_SPEED 700
-#define LEVEL_5_SPEED 600
-#define LEVEL_6_SPEED 500
-#define LEVEL_7_SPEED 400
-#define LEVEL_8_SPEED 300
-#define LEVEL_9_SPEED 200
-#define LEVEL_10_SPEED 100
+#define LEVEL_2_SPEED 850
+#define LEVEL_3_SPEED 700
+#define LEVEL_4_SPEED 550
+#define LEVEL_5_SPEED 425
+#define LEVEL_6_SPEED 300
+#define LEVEL_7_SPEED 225
+#define LEVEL_8_SPEED 150
+#define LEVEL_9_SPEED 100
+#define LEVEL_10_SPEED 50
 
 enum {
     LEVEL_1,

@@ -5,7 +5,8 @@ void handleEvent(
         int *loopScreen,
         Tetrominos **pTetrominos,
         List *list,
-        int (*pit)[PIT_NB_BLOCKS_WIDTH]
+        int (*pit)[PIT_NB_BLOCKS_WIDTH],
+        int performance[4]
 ) {
     switch (event.type) {
         case SDL_QUIT:
@@ -20,20 +21,25 @@ void handleEvent(
                     *loopScreen = 0;
                     break;
                 case SDLK_DOWN:
-                    moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, FLIP_RIGHT);
+                    moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, GO_BOTTOM, performance);
                     break;
                 case SDLK_UP:
-                    moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, FLIP_LEFT);
+                    moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, HARD_DROP, performance);
                     break;
                 case SDLK_RIGHT:
-                    moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, GO_RIGHT);
+                    moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, GO_RIGHT, performance);
                     break;
                 case SDLK_LEFT:
-                    moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, GO_LEFT);
+                    moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, GO_LEFT, performance);
+                    break;
+                case SDLK_q:
+                    moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, FLIP_LEFT, performance);
+                    break;
+                case SDLK_d:
+                    moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, FLIP_RIGHT, performance);
                     break;
                 case SDLK_SPACE:
-                    swapTetrominos(pTetrominos, list);
-                    // dropTetrominos(pTetrominos[CURRENT_TETROMINOS], pit);
+                    moveTetrominos(pTetrominos[CURRENT_TETROMINOS], pit, HARD_DROP, performance);
                     break;
                 default:
                     break;
@@ -43,7 +49,16 @@ void handleEvent(
     }
 }
 
-void moveTetrominos(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int move) {
+void moveTetrominos(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int move, int performance[4]) {
+    if(move == HARD_DROP) {
+        while (resoleMovement(tetrominos, pit, GO_BOTTOM, performance)) {performance[PERFORMANCE_SCORE]++;}
+    } else {
+        resoleMovement(tetrominos, pit, move, performance);
+    }
+}
+
+int resoleMovement(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int move, int performance[4])
+{
     if (availableToMove(tetrominos, pit, move)) {
         switch (move) {
             case GO_LEFT:
@@ -74,9 +89,10 @@ void moveTetrominos(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int
     } else {
         if (move == GO_BOTTOM && tetrominos->onLock == 0) {
             tetrominos->onLock = 1;
+            return 0;
         }
     }
-
+    return 1;
 }
 
 int availableToMove(Tetrominos *tetrominos, int (*pit)[PIT_NB_BLOCKS_WIDTH], int move) {

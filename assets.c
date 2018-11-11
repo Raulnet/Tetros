@@ -4,6 +4,7 @@
 
 void initAssetSurfaces(SDL_Surface **pSurfaces) {
     SDL_Init(SDL_INIT_VIDEO);
+    pSurfaces[TEXT_SCORE] = NULL;
     pSurfaces[SCREEN] = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
     pSurfaces[BACKGROUND] = IMG_Load("./img/backgrounds/background1.png");
     pSurfaces[BACK_WRAPPER] = IMG_Load("./img/backgrounds/back.png");
