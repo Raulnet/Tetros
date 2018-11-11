@@ -59,13 +59,12 @@ void play(
         TTF_Font *font
 ) {
     SDL_Event event;
-
+    int perfomance[PERFORMANCE_NB] = {0};
     do {
         Tetrominos *pTetrominos[2] = {0};
         int pit[PIT_NB_BLOCKS_HEIGHT][PIT_NB_BLOCKS_WIDTH];
         int level[10];
 
-        int perfomance[PERFORMANCE_NB] = {0};
         int currentLevel = 0;
         int loopScreen = 1;
         Uint32 timeFrame = 0, currentTime = 0, previousTime = 0;
@@ -123,6 +122,8 @@ int askPlayAgain(
     int loopScreen = 1;
     char tryAgain[20] = "TRY AGAIN ???";
     char pressEnter[20] = "PRESS ENTER/ESCAPE";
+    char score[20] = "";
+    char line[20] = "";
     SDL_Rect position;
 
     while (loopScreen) {
@@ -138,7 +139,6 @@ int askPlayAgain(
                         loopScreen = 0;
                         break;
                     case SDLK_RETURN:
-                        printf("PRESS ENTER TO PLAY AGAIN!!! \n");
                         playAgain = 1;
                         loopScreen = 0;
                         break;
@@ -157,6 +157,7 @@ int askPlayAgain(
 
         renderPerformance(pSurfaces[SCREEN], font, position, 100, 250, tryAgain);
         renderPerformance(pSurfaces[SCREEN], font, position, 45, 290, pressEnter);
+
         SDL_Flip(pSurfaces[SCREEN]);
     }
     return playAgain;
